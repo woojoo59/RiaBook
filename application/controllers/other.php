@@ -149,8 +149,10 @@ class Other extends CI_Controller {
 
         $idx = $_GET['view'];
         $complain = $this->complain_model->index($idx);
+
         if(!isset($_SESSION['useridx']) or $complain->creator != $_SESSION['useridx']){
             if($_SESSION['useridx']!=1){
+                $complain->content = htmlspecialchars($complain->content, ENT_QUOTES, 'UTF-8');
                 redirect(base_url().'other/complain?option=0');
             }
         }

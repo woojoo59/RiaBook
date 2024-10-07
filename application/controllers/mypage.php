@@ -476,7 +476,7 @@ class Mypage extends CI_Controller {
     }
 
     public function editnotice(){
-        $title = $_POST['title'];
+        $title = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');;
         $content = $_POST['content'];
         $noticeidx = $_POST['novelidx'];
         $this->notice_model->editnotice($title,$content,$noticeidx);

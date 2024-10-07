@@ -134,6 +134,7 @@
    	});
 </script>
 <?php }else{ ?>
+	
 	<script>
 		$('#subtite').html('공지');
 		$('#wnovel').attr('action','<?=base_url()?>mypage/editnotice');

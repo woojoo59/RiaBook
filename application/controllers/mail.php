@@ -78,7 +78,7 @@ class Mail extends CI_Controller {
     function mailwrite(){
 
 
-        $subject = $_POST['subject'];
+        $subject = htmlspecialchars($_POST['subject'], ENT_QUOTES, 'UTF-8');
         $content = $_POST['content'];
         $subdate = date('Y-m-d H:i:s');
         $fromuseridx = $_SESSION['useridx'];

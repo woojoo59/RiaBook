@@ -33,10 +33,10 @@ class Novel extends CI_Controller {
         }
 
         $useridx = $_SESSION['useridx'];
-        $subject = $_POST['subject'];
+        $subject = $this->sanitize_input($_POST['subject']);
         $introduce = $_POST['introduce'];
         $category = $_POST['category'];
-        $tag = $_POST['tag'];
+        $tag = $this->sanitize_input($_POST['tag']);
         $status = $_POST['status'];
         $date = date('Y-m-d H:i:s',time());
 
@@ -226,6 +226,7 @@ class Novel extends CI_Controller {
     function write(){                                                                   //연재
         $idx = $_POST['foridx'];
         $title = $this->sanitize_input($_POST['title']);
+
         $content = ($_POST['content']);
         $status = $_POST['nstatus'];
 
@@ -399,7 +400,7 @@ class Novel extends CI_Controller {
 
 
         $viewer[0]->goback = '1';
-        print_r($viewer[0]);
+
         $this->load->view('novel/viewer/viewerheader',$viewer[0]);
 
         $this->load->view('novel/list/listheader');
@@ -636,7 +637,7 @@ class Novel extends CI_Controller {
         $subject    = $this->sanitize_input($_POST['subject']);
         $category   = $_POST['category'];
         $status     = $_POST['status'];
-        $tag        = $_POST['tag'];
+        $tag        = $this->sanitize_input($_POST['tag']);
         $introduce  = $_POST['introduce'];
         $file_path = 'C:\xampp\htdocs\static\upload/';
         $this->load->model('img_model');
