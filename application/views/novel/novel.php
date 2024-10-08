@@ -72,6 +72,9 @@
         height: 3vw;
 
     }
+    .plh{
+        color:grey;
+    }
 </style>
 <div class="novelmain">
 <form action="<?=base_url()?>novel/newnovel" id="novel_list_form" method="post" enctype="multipart/form-data">
@@ -141,13 +144,26 @@
         UL
     </button>
 </div>
-    <div id="editor" contenteditable="true"></div>
+    <div id="editor" contenteditable="true"><div class="plh">소개를 입력해주세요.</div></div>
     <div class="novelfooter">
         <button class="btn btn-outline-primary novelbtn">작품 등록</button>
     </div>
 </div>
 
 <script type="text/javascript">
+    let editflag = 0
+    $('#editor').on('focus',()=>{
+        if(editflag == 0){
+            $('#editor').html('');
+            editflag = 1;
+        }
+    })
+    $('#editor').on('focusout',()=>{
+        if($('#editor').html()==''){
+            $('#editor').html('<div class="plh">소개를 입력해주세요.</div>');
+            editflag = 0
+        }
+    })
     const img = document.querySelector('#inputGroupFile01');
     img.addEventListener('change',(e)=>{
         const reader = new FileReader();
@@ -192,7 +208,7 @@
            return false;
         }
         
-        if($('#introduce').val()==''){
+        if(editflag==0){
            alert('소설을 소개 해주세요.');
            return false;
         }

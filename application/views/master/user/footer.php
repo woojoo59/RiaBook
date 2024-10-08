@@ -1,16 +1,29 @@
 				<div class="page1div">
 					<nav aria-label="Page navigation example">
 					  <ul class="pagination">
+					  	<?php if($nowpage>0){ ?>
+					  	<li class="page-item">
+					      <a class="page-link" 
+					      href="<?=base_url()?>master/user?category=<?=$category?>&input=<?=$input?>" aria-label="Previous">
+					        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+</svg>
+					      </a>
+					    </li>	
+					  	<?php } ?>
 					  	<?php if($nowblock != 1){ ?>
 					    <li class="page-item">
 					      <a class="page-link" 
 					      href="<?=base_url()?>master/user/<?=$startpage-1?>?category=<?=$category?>&input=<?=$input?>" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
+					        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+</svg>
 					      </a>
 					    </li>
 						<?php } ?>
 						<?php for($i=$startpage;$i<=$endpage;$i++){ ?>
-					    <li class="page-item">
+					    <li class="page-item" width="14">
 					    	<a class="page-link <?php if($nowpage==$i){echo'active';} ?>" 
 					    		href="<?=base_url()?>master/user/<?=$i?>?category=<?=$category?>&input=<?=$input?>">
 					    		<?=$i+1?>
@@ -21,7 +34,20 @@
 					    <li class="page-item">
 					      <a class="page-link" 
 					      href="<?=base_url()?>master/user/<?=$endpage+1?>?category=<?=$category?>&input=<?=$input?>" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
+					        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+</svg>
+					      </a>
+					    </li>
+						<?php } ?>
+						<?php if($maxpage>$nowpage){ ?>
+							<li class="page-item">
+					      <a class="page-link" 
+					      href="<?=base_url()?>master/user/<?=$maxpage?>?category=<?=$category?>&input=<?=$input?>" aria-label="Next">
+					        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+</svg>
 					      </a>
 					    </li>
 						<?php } ?>

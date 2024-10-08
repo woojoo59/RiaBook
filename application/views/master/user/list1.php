@@ -1,7 +1,7 @@
 <div id="list<?=$useridx?>" class="tline bb">
-	<div class="tds"><?=$identifier?></div>
-	<div class="tds"><?=$nickname?></div>
-	<div class="tds"><?=$username?></div>
+	<div id="listid<?=$useridx?>" class="tds"><?=$identifier?></div>
+	<div id="listnick<?=$useridx?>" class="tds"><?=$nickname?></div>
+	<div id="listname<?=$useridx?>" class="tds"><?=$username?></div>
 	<div id="userstatus<?=$useridx?>" class="tds"><?=$statusn?></div>
 </div>
 <div id="listcontent<?=$useridx?>" class="listcontent dn">
@@ -24,7 +24,9 @@
 	<div class="rdiv"><div class="rdiv1">패스워드 : </div><div class="rdiv-2">
 		<input id="password<?=$useridx?>" type="text">
 	</div><div class="rdiv-3"><button id="passwordbtn<?=$useridx?>" class="userbtn">확인</button></div></div>
-	<div class="rdiv"><div class="rdiv1">닉네임 : </div><div class="rdiv2"><?=$nickname?></div></div>
+	<div class="rdiv"><div class="rdiv1">닉네임 : </div><div class="rdiv-2">
+		<input id="nick<?=$useridx?>" type="text" value='<?=$nickname?>' >
+	</div><div class="rdiv-3"><button id="nickbtn<?=$useridx?>" class="userbtn">확인</button></div></div>
 	<div class="rdiv"><div class="rdiv1">연락처 : </div><div class="rdiv2"><?=$phonenumber?></div></div>
 	<div class="rdiv"><div class="rdiv1">이름 : </div><div class="rdiv-2">
 		<input id="username<?=$useridx?>" type="text" value="<?=$username?>">
@@ -32,11 +34,13 @@
 	<div class="rdiv"><div class="rdiv1">이메일 : </div><div class="rdiv2"><?=$email?></div></div>
 	<div class="rdiv"><div class="rdiv1">가입일 : </div><div class="rdiv2"><?=$created?></div></div>
 	<div class="rdiv"><div class="rdiv1"></div><div class="rdiv2"></div></div>
+	<div class="rdiv"><div class="rdiv1"></div><div class="rdiv2"></div></div>
 	<div class="rdiv"><div class="rdiv1 comma">세팅</div><div class="rdiv2"></div></div>
 	<div class="rdiv"><div class="rdiv1">폰트 사이즈 : </div><div class="rdiv2"><?=$setting[0]?></div></div>
 	<div class="rdiv"><div class="rdiv1">줄 여백 : </div><div class="rdiv2"><?=$setting[1]?></div></div>
 	<div class="rdiv"><div class="rdiv1">폰트 컬러 : </div><div class="rdiv2"><?=$setting[2]?></div></div>
 	<div class="rdiv"><div class="rdiv1">배경 컬러 : </div><div class="rdiv2"><?=$setting[3]?></div></div>
+	<div class="rdiv"><div class="rdiv1"></div><div class="rdiv2"></div></div>
 	<div class="rdiv"><div class="rdiv1"></div><div class="rdiv2"></div></div>
 	<div class="rdiv"><div class="rdiv1 comma">주소</div><div class="rdiv2"></div></div>
 	<div class="rdiv"><div class="rdiv1">우편 번호 : </div><div class="rdiv2"><?=$address[0]?></div></div>
@@ -83,13 +87,14 @@
             	let obj = JSON.parse(data);
             	if(obj.result == 'no'){
             	    flag = 1;
-					$('#saymain').html('중복된 아이디입니다.')
-					dn10()
+					$('#saymain').html('중복된 아이디입니다.');
+					dn10();
             	} else if(obj.result == 'ok'){
             	    $.post('<?=base_url()?>master/identifierc',{'identifier': $('#identifier<?=$useridx?>').val() ,'useridx': '<?=$useridx?>' })
 					flag = 1;
-					$('#saymain').html('해당 유저의 아이디가 변경되었습니다.')
-					dn10()
+					$('#saymain').html('해당 유저의 아이디가 변경되었습니다.');
+					$('#listid<?=$useridx?>').html($('#identifier<?=$useridx?>').val());
+					dn10();
             	}
         	})
 		}
@@ -106,8 +111,9 @@
 		if(flag == 0){
 			$.post('<?=base_url()?>master/usernamec',{'username': $('#username<?=$useridx?>').val() ,'useridx': '<?=$useridx?>' })
 			flag = 1;
-			$('#saymain').html('해당 유저의 이름이 변경되었습니다.')
-			dn10()
+			$('#saymain').html('해당 유저의 이름이 변경되었습니다.');
+			$('#listname<?=$useridx?>').html($('#username<?=$useridx?>').val());
+			dn10();
 		}
 	})
 	$('#pointbtn<?=$useridx?>').on('click',()=>{
@@ -116,6 +122,21 @@
 			flag = 1;
 			$('#saymain').html('해당 유저의 포인트가 변경되었습니다.')
 			dn10()
+		}
+	})
+	$('#nickbtn<?=$useridx?>').on('click',()=>{
+		if(flag==0){
+			$.post('<?=base_url()?>master/nick',{'nick':$('#nick<?=$useridx?>').val(), 'useridx' : '<?=$useridx?>'},function(data){
+            	let obj = JSON.parse(data);
+            	flag = 1;
+            	if(obj.result == 0){
+            		$('#saymain').html('중복된 닉네임입니다.');
+            	}else {
+            		$('#saymain').html('해당 유저의 닉네임이 변경되었습니다.');
+            		$('#listnick<?=$useridx?>').html($('#nick<?=$useridx?>').val());
+            	}
+            	dn10();
+        	})
 		}
 	})
 </script>

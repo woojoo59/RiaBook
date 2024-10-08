@@ -41,6 +41,58 @@ class Master extends CI_Controller {
             $class = array('에피소드','공지','쪽지','댓글','댓글','소설');
 
             $repots = $this->report_model->select();
+            foreach($repots as $r){
+                switch ($r->class) {
+                    case 1:
+                        $for1 = $this->notice_model->rowidx($r->foridx);
+                        if(!isset($for1->foridx)){
+                            $this->report_model->delete($r->reportidx);
+                        } else{
+                            $for = $this->novellist_model->selectidx($for1->foridx);
+                                if(!isset($for->idx)){
+                                $this->report_model->delete($r->reportidx);
+                            }
+                        }
+                        break;
+                    case 2:
+                        $for = $this->mail_model->idxselect($r->foridx);
+                        if(!isset($for->mailidx)){
+                            $this->report_model->delete($r->reportidx);
+                        }
+                        break;
+                    case 3:
+                        $for = $this->comment_model->idxselect($r->foridx);
+                        if(!isset($for->cidx)){
+                            $this->report_model->delete($r->reportidx);
+                        }
+                        break;
+                    case 4:
+                        $for = $this->comment_model->idxselect($r->foridx);
+                        if(!isset($for->cidx)){
+                            $this->report_model->delete($r->reportidx);
+                        }
+                        break;
+                    case 5:
+                        $for = $this->novellist_model->selectidx($r->foridx);
+                        if(!isset($for->idx)){
+                            $this->report_model->delete($r->reportidx);
+                        }
+                        break;
+                    
+                    default:
+                        $for1 = $this->novel_model->mynovelidx($r->foridx);
+                        if(!isset($for1->idx)){
+                            $this->report_model->delete($r->reportidx);
+                        }else{
+                            $for = $this->novellist_model->selectidx($for1->idx);
+                            if(!isset($for->idx)){
+                                $this->report_model->delete($r->reportidx);
+                            }
+                        }
+                        break;
+                }
+            }
+            $repots = $this->report_model->select();
             $maxcnt = 0;
             foreach($repots as $repot){
                 $maxcnt++;
@@ -269,7 +321,7 @@ class Master extends CI_Controller {
         if($endpage>$maxpagecnt){
             $endpage = $maxpagecnt-1;
         }
-        $pageskin = array('nowpage'=> $page, 'nowblock'=>$nowblock, 'maxblock'=>$maxblockcnt, 'startpage'=>$startpage, 'endpage'=>$endpage);
+        $pageskin = array('nowpage'=> $page, 'nowblock'=>$nowblock, 'maxblock'=>$maxblockcnt, 'startpage'=>$startpage, 'endpage'=>$endpage, 'maxpage'=>$maxpagecnt-1);
         $pageskin['category'] = $category;
         $pageskin['input'] = $input;
 
@@ -297,6 +349,7 @@ class Master extends CI_Controller {
         if($maxcnt == 0){
             $this->load->view('master/user/spacelist');
         }
+
         $this->load->view('master/user/footer',$pageskin);
 
     }
@@ -318,7 +371,7 @@ class Master extends CI_Controller {
     function novels($page){
         $category = array('판타지', '무협', '로맨스', '드라마', '라이트 노벨', '패러디', '기타');
         $novels = $this->novellist_model->master();
-        $option = 'b';
+        $option = '';
         $input = '';
         if(isset($_GET['category']) and isset($_GET['input']) and $_GET['input'] != ''){
             $option = $_GET['category'];
@@ -385,7 +438,7 @@ class Master extends CI_Controller {
         if($endpage>=$maxpagecnt){
             $endpage = $maxpagecnt-1;
         }
-        $pageskin = array('nowpage'=> $page, 'nowblock'=>$nowblock, 'maxblock'=>$maxblockcnt, 'startpage'=>$startpage, 'endpage'=>$endpage);
+        $pageskin = array('nowpage'=> $page, 'nowblock'=>$nowblock, 'maxblock'=>$maxblockcnt, 'startpage'=>$startpage, 'endpage'=>$endpage, 'maxpage'=>$maxpagecnt-1);
         $pageskin['category'] = $option;
         $pageskin['input'] = $input;
         $pageskin['open'] = $open;
@@ -473,6 +526,17 @@ class Master extends CI_Controller {
         }
         $pageskin['open'] = $open;
         $this->load->view('master/novels/list2page',$pageskin);
+    }
+
+    public function nick(){
+        $row = $this->users_model->nickname($_POST['nick']);
+        if(isset($row->useridx)){
+            $result = array('result' => 0);
+            die(json_encode($result));
+        }
+        $this->users_model->masterup4($_POST['nick'],$_POST['useridx']);
+        $result = array('result' => 1);
+        die(json_encode($result));
     }
 
     public function episodec(){

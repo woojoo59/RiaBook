@@ -478,7 +478,7 @@
         }
         let ad4pattern = /[^A-Za-z0-9가-힣\-]/;
         if(ad4pattern.test($('#ad4').val())){
-            alert('상세주소는 한글과 영어, 숫자만 입력가능합니다.');
+            alert('상세주소는 한글과 영어, 숫자,"-"만 입력가능합니다.');
             return false;
         }
         h1.val(ad1.val());
@@ -487,5 +487,4 @@
         history.replaceState(null, null, '<?=base_url()?>');
         createuser.submit();
     })
-
 </script>

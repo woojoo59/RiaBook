@@ -83,6 +83,7 @@
     </div>
 </body>
 <script>
+    $('#floatingInput').focus();
     code();
     $('#check').on('click',()=>{
         let flag = $('#floatingInput').val();

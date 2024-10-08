@@ -261,9 +261,9 @@
 		</div>
 		<div class="seearchdatediv optiondiv">
 			<div class="namelabel">연재 날짜</div>
-			<input class="searchdate optiondivr" type="text" name="date" id="fromdate" readonly value="<?=$sdate?>">
+			<input class="searchdate optiondivr" type="text" name="date" id="fromdate" readonly value="<?php if(isset($_GET['date']))echo $_GET['date']; ?>">
 			<div class="spacedate">~</div>
-			<input class="searchdate optiondivr" type="text" name="fdate" id="fdate" readonly value="<?=$fdate?>">
+			<input class="searchdate optiondivr" type="text" name="fdate" id="fdate" readonly value="<?php if(isset($_GET['fdate']))echo $_GET['fdate']; ?>">
 		</div>
 		<div class="categorydiv optiondiv">
 			<div class="namelabel">카테고리</div>

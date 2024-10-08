@@ -154,6 +154,10 @@ class Users_model extends CI_Model {
         $sql = 'update users set username = ? where useridx = ?';
         $this->db->query($sql,array($username,$useridx));
     }
+    function masterup4($nickname,$useridx){
+        $sql = 'update users set nickname = ? where useridx = ?';
+        $this->db->query($sql,array($nickname,$useridx));
+    }
     function masterpoint($mypoint,$useridx){
         $sql = 'update users set mypoint = ? where useridx = ?';
         $this->db->query($sql,array($mypoint,$useridx));

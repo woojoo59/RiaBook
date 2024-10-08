@@ -8,6 +8,7 @@
 		min-height: 3vw;
 		border-bottom: 1px solid #eef0f2;
 		font-size: 1.3vw;
+		display: flex;
 	}
 	.content{
 		padding: 0.5vw;
@@ -44,6 +45,15 @@
 	.noticebtns:hover{
 		background-color:#eef0f2;
 	}
+	.titlediv{
+		width: 4vw;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		margin-right: 1vw;
+		background-color:skyblue;
+		border-radius:0.5vw;
+	}
 </style>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,7 +70,7 @@
   </div>
 </div>
 <div class="pagemain">
-	<div class="title"><?=$title?></div>
+	<div class="title"><div class="titlediv">공지</div><?=$title?></div>
 	<div class="content"><?=$content?></div>
 	<div class="noticebtnsdiv">
 	<?php if(isset($_SESSION['useridx']) and $_SESSION['useridx']==1){ ?>
