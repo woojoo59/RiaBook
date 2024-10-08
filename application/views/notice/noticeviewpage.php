@@ -60,7 +60,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body echobody">
-        해당 게시글을 정말로 삭제하시겠습니까?
+        해당 게시글을 정말로 삭제하시겠습니까?1
       </div>
       <div class="modal-footer">
         <button type="button" class="echobtn btn btn-secondary" data-bs-dismiss="modal">아니요</button>
